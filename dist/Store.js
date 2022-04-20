@@ -15,6 +15,7 @@ class Store {
     ];
     this.gameStarted = false;
     this.gameOver = false;
+    this.gameWon = false;
     this.difficulty = 0;
     makeAutoObservable(this);
   }
