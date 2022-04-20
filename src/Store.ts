@@ -4,7 +4,22 @@ import { action, makeAutoObservable, observable } from 'mobx';
 
 class Store {
   //define your data here
-  count: number = 0;
+  board = [
+    [
+      {
+        row: 0,
+        col: 0,
+        adjacentMines: 0,
+        isMine: false,
+        isRevealed: false,
+        isFlagged: false,
+      },
+    ],
+  ];
+  gameStarted = false;
+  gameOver = false;
+  gameWon = false;
+  difficulty = 0;
 
   constructor() {
     makeAutoObservable(this);

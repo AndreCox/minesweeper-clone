@@ -6,7 +6,7 @@ import './App.css';
 
 //import the different pages from the pages folder
 //add your own pages here
-import { Home, About } from './Pages/';
+import { Home } from './Pages/';
 import { store } from './Store';
 
 const App = () => {
@@ -14,7 +14,6 @@ const App = () => {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
       </Routes>
     </HashRouter>
   );
