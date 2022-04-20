@@ -68,7 +68,7 @@ const DifficultySelector = observer(() => {
     return null;
   }
   return /* @__PURE__ */ React.createElement("div", {
-    className: "absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
+    className: "absolute left-1/2 -translate-x-1/2"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "flex flex-col items-center bg-white rounded-lg p-4 shadow-black drop-shadow-lg shadow"
   }, /* @__PURE__ */ React.createElement("h1", {
@@ -95,6 +95,26 @@ const DifficultySelector = observer(() => {
     }
   }, "Hard"))));
 });
+const GameOver = observer(() => {
+  if (store.gameOver === false) {
+    return null;
+  }
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", {
+    className: "absolute left-1/2 -translate-x-1/2 z-50"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "flex flex-col items-center bg-white rounded-lg p-4 shadow-black drop-shadow-lg shadow"
+  }, /* @__PURE__ */ React.createElement("h1", {
+    className: "text-3xl font-medium text-center"
+  }, "Game Over"), /* @__PURE__ */ React.createElement("div", {
+    className: "flex flex-row items-center space-x-4 mt-8"
+  }, /* @__PURE__ */ React.createElement(Button, {
+    onClick: () => {
+      store.gameOver = false;
+      store.gameStarted = false;
+      store.board = [];
+    }
+  }, "Play Again")))));
+});
 function cascadeReveal(col) {
   if (col.isRevealed) {
     if (col.adjacentMines === 0) {
@@ -104,6 +124,9 @@ function cascadeReveal(col) {
             if (!store.board[i][j].isRevealed) {
               store.board[i][j].isRevealed = true;
               cascadeReveal(store.board[i][j]);
+            }
+            if (store.board[i][j].isFlagged) {
+              store.board[i][j].isFlagged = false;
             }
           }
         }
@@ -143,12 +166,26 @@ const Board = observer(() => {
     key: colIndex,
     onContextMenu: (e) => {
       e.preventDefault();
-      store.board[col.row][col.col].isFlagged = !store.board[col.row][col.col].isFlagged;
+      if (!store.gameOver) {
+        store.board[col.row][col.col].isFlagged = !store.board[col.row][col.col].isFlagged;
+      }
     },
     onClick: () => {
-      store.board[rowIndex][colIndex].isRevealed = true;
-      cascadeReveal(store.board[rowIndex][colIndex]);
-      console.log([rowIndex, colIndex]);
+      if (!store.gameOver) {
+        store.board[rowIndex][colIndex].isRevealed = true;
+        cascadeReveal(store.board[rowIndex][colIndex]);
+        if (store.board[rowIndex][colIndex].isMine) {
+          for (let i = 0; i < store.board.length; i++) {
+            for (let j = 0; j < store.board[i].length; j++) {
+              if (store.board[i][j].isMine) {
+                store.board[i][j].isRevealed = true;
+              }
+            }
+          }
+          store.gameOver = true;
+        }
+        console.log([rowIndex, colIndex]);
+      }
     }
   }, /* @__PURE__ */ React.createElement("div", {
     className: "w-8 h-8"
@@ -159,6 +196,6 @@ const Board = observer(() => {
 const Home = () => {
   return /* @__PURE__ */ React.createElement("div", {
     className: "mb-8"
-  }, /* @__PURE__ */ React.createElement(DifficultySelector, null), /* @__PURE__ */ React.createElement(Board, null));
+  }, /* @__PURE__ */ React.createElement(DifficultySelector, null), /* @__PURE__ */ React.createElement(GameOver, null), /* @__PURE__ */ React.createElement(Board, null));
 };
 export default Home;
