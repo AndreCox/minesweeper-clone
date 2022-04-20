@@ -227,7 +227,21 @@ const Tile = observer((props: { col: any }) => {
     if (props.col.isMine) {
       return <div>💣</div>;
     } else {
-      return <div className="text-white">{props.col.adjacentMines}</div>;
+      if (props.col.adjacentMines === 0) {
+        return <div></div>;
+      } else if (props.col.adjacentMines === 1) {
+        return <div className="text-blue-500">1</div>;
+      } else if (props.col.adjacentMines === 2) {
+        return <div className="text-green-500">2</div>;
+      } else if (props.col.adjacentMines === 3) {
+        return <div className="text-orange-500">3</div>;
+      } else if (props.col.adjacentMines === 4) {
+        return <div className="text-red-500">4</div>;
+      } else if (props.col.adjacentMines === 5) {
+        return <div className="text-purple-500">5</div>;
+      } else if (props.col.adjacentMines === 6) {
+        return <div className="text-violet-500">6</div>;
+      }
     }
   }
   if (props.col.isFlagged) {
