@@ -175,43 +175,83 @@ function checkWin() {
 const Tile = observer((props) => {
   if (props.col.isRevealed) {
     if (props.col.isMine) {
-      return /* @__PURE__ */ React.createElement("div", null, "💣");
+      return /* @__PURE__ */ React.createElement("div", {
+        className: "w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+      }, /* @__PURE__ */ React.createElement("div", {
+        className: "flex flex-row justify-center"
+      }, /* @__PURE__ */ React.createElement("div", null, "💣")));
     } else {
       if (props.col.adjacentMines === 0) {
-        return /* @__PURE__ */ React.createElement("div", null);
+        return /* @__PURE__ */ React.createElement("div", {
+          className: "w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+        }, /* @__PURE__ */ React.createElement("div", {
+          className: "flex flex-row justify-center"
+        }, /* @__PURE__ */ React.createElement("div", null)));
       } else if (props.col.adjacentMines === 1) {
         return /* @__PURE__ */ React.createElement("div", {
+          className: "w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+        }, /* @__PURE__ */ React.createElement("div", {
+          className: "flex flex-row justify-center"
+        }, /* @__PURE__ */ React.createElement("div", {
           className: "text-blue-500"
-        }, "1");
+        }, "1")));
       } else if (props.col.adjacentMines === 2) {
         return /* @__PURE__ */ React.createElement("div", {
+          className: "w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+        }, /* @__PURE__ */ React.createElement("div", {
+          className: "flex flex-row justify-center"
+        }, /* @__PURE__ */ React.createElement("div", {
           className: "text-green-500"
-        }, "2");
+        }, "2")));
       } else if (props.col.adjacentMines === 3) {
         return /* @__PURE__ */ React.createElement("div", {
+          className: "w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+        }, /* @__PURE__ */ React.createElement("div", {
+          className: "flex flex-row justify-center"
+        }, /* @__PURE__ */ React.createElement("div", {
           className: "text-orange-500"
-        }, "3");
+        }, "3")));
       } else if (props.col.adjacentMines === 4) {
         return /* @__PURE__ */ React.createElement("div", {
+          className: "w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+        }, /* @__PURE__ */ React.createElement("div", {
+          className: "flex flex-row justify-center"
+        }, /* @__PURE__ */ React.createElement("div", {
           className: "text-red-500"
-        }, "4");
+        }, "4")));
       } else if (props.col.adjacentMines === 5) {
         return /* @__PURE__ */ React.createElement("div", {
+          className: "w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+        }, /* @__PURE__ */ React.createElement("div", {
+          className: "flex flex-row justify-center"
+        }, /* @__PURE__ */ React.createElement("div", {
           className: "text-purple-500"
-        }, "5");
+        }, "5")));
       } else if (props.col.adjacentMines === 6) {
         return /* @__PURE__ */ React.createElement("div", {
+          className: "w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+        }, /* @__PURE__ */ React.createElement("div", {
+          className: "flex flex-row justify-center"
+        }, /* @__PURE__ */ React.createElement("div", {
           className: "text-violet-500"
-        }, "6");
+        }, "6")));
       }
     }
   }
   if (props.col.isFlagged) {
-    return /* @__PURE__ */ React.createElement("div", null, "🚩");
+    return /* @__PURE__ */ React.createElement("div", {
+      className: "w-8 h-8 bg-slate-700 hover:bg-slate-600 hover:shadow-lg hover:drop-shadow-xl hover:rounded-lg transition-all rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+    }, /* @__PURE__ */ React.createElement("div", {
+      className: "flex flex-row justify-center"
+    }, /* @__PURE__ */ React.createElement("div", null, "🚩")));
   }
   return /* @__PURE__ */ React.createElement("div", {
+    className: "w-8 h-8 bg-slate-700 hover:bg-slate-600 hover:shadow-lg hover:drop-shadow-xl hover:rounded-lg transition-all rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "flex flex-row justify-center"
+  }, /* @__PURE__ */ React.createElement("div", {
     className: "text-white"
-  }, "🪨");
+  }, "🪨")));
 });
 const Board = observer(() => {
   if (store.gameStarted === false) {
@@ -254,13 +294,9 @@ const Board = observer(() => {
         checkWin();
       }
     }
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "flex flex-row justify-center"
   }, /* @__PURE__ */ React.createElement(Tile, {
     col
-  })))))))));
+  })))))));
 });
 const Home = () => {
   return /* @__PURE__ */ React.createElement("div", {
