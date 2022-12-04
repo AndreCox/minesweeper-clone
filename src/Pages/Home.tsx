@@ -222,32 +222,49 @@ function checkWin() {
   }
 }
 
+const ColorMap = [
+  'text-transparent',
+  'text-blue-500',
+  'text-green-500',
+  'text-orange-500',
+  'text-red-500',
+  'text-purple-500',
+  'text-violet-500',
+];
+
 const Tile = observer((props: { col: any }) => {
   if (props.col.isRevealed) {
-    if (props.col.isMine) {
-      return <div>💣</div>;
-    } else {
-      if (props.col.adjacentMines === 0) {
-        return <div></div>;
-      } else if (props.col.adjacentMines === 1) {
-        return <div className="text-blue-500">1</div>;
-      } else if (props.col.adjacentMines === 2) {
-        return <div className="text-green-500">2</div>;
-      } else if (props.col.adjacentMines === 3) {
-        return <div className="text-orange-500">3</div>;
-      } else if (props.col.adjacentMines === 4) {
-        return <div className="text-red-500">4</div>;
-      } else if (props.col.adjacentMines === 5) {
-        return <div className="text-purple-500">5</div>;
-      } else if (props.col.adjacentMines === 6) {
-        return <div className="text-violet-500">6</div>;
-      }
-    }
+    return (
+      <div className="w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black">
+        <div className="flex flex-row justify-center">
+          <div
+            className={
+              !props.col.isMine ? ColorMap[props.col.adjacentMines] : ''
+            }
+          >
+            {props.col.isMine ? '💣' : props.col.adjacentMines}
+          </div>
+        </div>
+      </div>
+    );
   }
+
   if (props.col.isFlagged) {
-    return <div>🚩</div>;
+    return (
+      <div className="w-8 h-8 bg-slate-700 hover:bg-slate-600 hover:shadow-lg hover:drop-shadow-xl hover:rounded-lg transition-all rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black">
+        <div className="flex flex-row justify-center">
+          <div>🚩</div>
+        </div>
+      </div>
+    );
   }
-  return <div className="text-white">🪨</div>;
+  return (
+    <div className="w-8 h-8 bg-slate-700 hover:bg-slate-600 hover:shadow-lg hover:drop-shadow-xl hover:rounded-lg transition-all rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black">
+      <div className="flex flex-row justify-center">
+        <div className="text-white">🪨</div>
+      </div>
+    </div>
+  );
 });
 
 const Board = observer(() => {
@@ -294,11 +311,7 @@ const Board = observer(() => {
                   }
                 }}
               >
-                <div className="w-8 h-8 bg-slate-700 rounded-xl m-1 p-1 flex justify-center flex-col align-middle drop-shadow shadow-black">
-                  <div className="flex flex-row justify-center">
-                    <Tile col={col} />
-                  </div>
-                </div>
+                <Tile col={col} />
               </div>
             ))}
           </div>
